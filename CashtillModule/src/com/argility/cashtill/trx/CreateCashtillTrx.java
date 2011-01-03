@@ -5,7 +5,7 @@ import com.argility.dao.entity.CashTillEntity;
 import com.argility.master.trxengine.iface.TransactionInterface;
 import com.argility.master.trxengine.iface.exception.TransactionException;
 
-public class CreateCashtillTrx extends BaseCashtillTrx {
+public class CreateCashtillTrx extends BasicCashtillTrx {
 
 	public static int ACTION_TYP = 106000; 
 	

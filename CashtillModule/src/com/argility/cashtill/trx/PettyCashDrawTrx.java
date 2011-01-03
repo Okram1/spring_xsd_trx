@@ -14,7 +14,7 @@ import com.argility.schema.cashtill.generated.TenderData01;
  * @author Mare
  *
  */
-public class PettyCashDrawTrx extends BaseCashtillTrx {
+public class PettyCashDrawTrx extends BasicCashtillTrx {
 
 	public static int ACTION_TYP = 1235;
 	

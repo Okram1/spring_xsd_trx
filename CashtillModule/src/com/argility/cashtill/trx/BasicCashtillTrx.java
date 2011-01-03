@@ -13,7 +13,7 @@ import com.argility.schema.cashtill.generated.TenderData01;
 import com.argility.schema.context.SchemaCtxFactory;
 
 
-public abstract class BaseCashtillTrx extends AbstractTransaction {
+public abstract class BasicCashtillTrx extends AbstractTransaction {
 
 	@Override
 	public String getSchemaLocation() {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="daoCtxFactory" class="com.argility.dao.context.DaoCtxFactoryImpl">
+	</bean>
+
+	<bean id="cashTranDAO" class="com.argility.dao.jdbcimpl.CashTranJdbcImplDAO"
+		parent="abstractSpringJdbcDAO">
+	</bean>
+	
+	<bean id="cupTendDAO" class="com.argility.dao.jdbcimpl.CupTendJdbcImplDAO"
+		parent="abstractSpringJdbcDAO">
+	</bean>
+	
+	<bean id="cashTillDAO" class="com.argility.dao.jdbcimpl.CashTillJdbcImplDAO"
+		parent="abstractSpringJdbcDAO">
+	</bean>
+	
+	<bean id="pettyDrawDAO" class="com.argility.dao.jdbcimpl.PettyDrawJdbcImplDAO"
+		parent="abstractSpringJdbcDAO">
+	</bean>
+</beans>

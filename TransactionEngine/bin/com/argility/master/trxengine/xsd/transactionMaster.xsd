@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+
+	<xs:element name="clientData">
+		<xs:complexType>
+		   <xs:sequence>
+	         <xs:element name="userId" type="xs:string" minOccurs="1" maxOccurs="1" />
+	         <xs:element name="deviceId" type="xs:string" minOccurs="1" maxOccurs="1" />
+	      </xs:sequence>
+	   </xs:complexType>
+	</xs:element>
+	
+	<xs:element name="oboData">
+		<xs:complexType>
+		   <xs:sequence>
+	         <xs:element name="oboBrCde" type="xs:string" minOccurs="1" maxOccurs="1" />
+	         <xs:element name="oboAudId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+	      </xs:sequence>
+	   </xs:complexType>
+	</xs:element>
+
+	<xs:element name="clientHeader">
+		<xs:complexType>
+		   <xs:sequence>
+	         <xs:element ref="clientData" minOccurs="1" maxOccurs="1" />
+	         <xs:element ref="oboData" minOccurs="0" maxOccurs="1" />
+	         <xs:element name="createDate" type="xs:long" minOccurs="1" maxOccurs="1" />
+	      </xs:sequence>
+	   </xs:complexType>
+	</xs:element>
+
+	<xs:element name="actionHeader">
+		<xs:complexType>
+		   <xs:sequence>
+	         <xs:element ref="clientHeader" minOccurs="1" maxOccurs="1" />
+	         <xs:element name="buildNumber" type="xs:string" minOccurs="1" maxOccurs="1" />
+	      </xs:sequence>
+	   </xs:complexType>
+	</xs:element>
+
+	<xs:element name="tranProfile">
+		<xs:complexType>
+		   <xs:sequence>
+	         <xs:element name="auditId" type="xs:int" minOccurs="1" maxOccurs="1" />
+	         <xs:element name="actionTyp" type="xs:integer" minOccurs="1" maxOccurs="1" />
+	         <xs:element name="schemaLocation" type="xs:string" minOccurs="1" maxOccurs="1" />
+	         <xs:element name="financial" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+	         <xs:element name="credit" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+	         <xs:element name="cash" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+	      </xs:sequence>
+	   </xs:complexType>
+	</xs:element>
+	
+</xs:schema>

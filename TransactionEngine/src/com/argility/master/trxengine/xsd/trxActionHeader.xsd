@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+	
+	<!-- Client information, must be made common across all xsd's -->
+	<xs:element name="uiD01">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="userId" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="deviceId" type="xs:string" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- Transaction profile information, across all xsd's   -->
+   <xs:element name="transData01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="actionType" type="xs:integer" minOccurs="1" maxOccurs="1" />
+         <xs:element name="isFinancial" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+         <xs:element name="docDate" type="xs:long" minOccurs="1" maxOccurs="1" />
+         <xs:element name="docNo" type="xs:string" minOccurs="1" maxOccurs="1" />
+         <xs:element name="refDocNo" type="xs:string" maxOccurs="1" minOccurs="0" />
+         <xs:element name="buildNumber" type="xs:string"  minOccurs="0" maxOccurs="1" />
+         <xs:element name="isCredit" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="seqD01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="audit" type="xs:integer" minOccurs="1" maxOccurs="1" />
+         <xs:element name="finProcPer" type="xs:string" minOccurs="1" maxOccurs="1" />
+         <xs:element name="branchCode" type="xs:string" minOccurs="1" maxOccurs="1" />
+         <xs:element name="grpCode" type="xs:string" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <!-- Transaction value information, must be made common across all xsd's   -->
+   <xs:element name="docValueData01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="transAmt" type="xs:double" minOccurs="1" maxOccurs="1" />
+         <xs:element name="taxAmt" type="xs:double" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   
+   <!-- Reference to other action Information -->
+   <xs:element name="refToInfo01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="refToId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <!-- Transaction "Header" Information -->
+   <xs:element name="actH01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="uiD01" minOccurs="1" maxOccurs="1" />
+         <xs:element ref="transData01" minOccurs="1" maxOccurs="1" />
+         <xs:element ref="seqD01" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="refToInfo01" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="docValueData01" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="oboInData01" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="oboOutData01" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   
+   	<xs:element name="oboInData01">
+		<xs:complexType>
+		   <xs:sequence>
+	         <xs:element name="oboBrCde" type="xs:string" minOccurs="1" maxOccurs="1" />
+	         <xs:element name="oboAudId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+	      </xs:sequence>
+	   </xs:complexType>
+	</xs:element>
+	
+	<xs:element name="oboOutData01">
+		<xs:complexType>
+		   <xs:sequence>
+	         <xs:element name="oboBrCde" type="xs:string" minOccurs="1" maxOccurs="1" />
+	         <xs:element name="oboAudId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+	      </xs:sequence>
+	   </xs:complexType>
+	</xs:element>
+   
+</xs:schema>

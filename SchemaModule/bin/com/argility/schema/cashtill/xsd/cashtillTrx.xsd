@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+
+	<xs:include schemaLocation="../../xsd/trxActionHeader.xsd"></xs:include>
+	<xs:include schemaLocation="cashtillData.xsd"></xs:include>
+
+	<xs:element name="com.argility.cashtill.trx.CreateCashtillTrx">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element ref="actH01" maxOccurs="1" />
+					<xs:element ref="clientActH01" maxOccurs="1" />
+	    		</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="com.argility.cashtill.trx.UpdateCashtillTrx">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element ref="actH01" maxOccurs="1" />
+					<xs:element ref="clientActH01" maxOccurs="1" />
+	    		</xs:choice>
+	    		<xs:element name="amount" type="xs:double" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="com.argility.cashtill.trx.PettyCashDrawTrx">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element ref="actH01" maxOccurs="1" />
+					<xs:element ref="clientActH01" maxOccurs="1" />
+	    		</xs:choice>
+	    		<xs:element ref="pettyCashDraw" minOccurs="1" maxOccurs="1" />
+	    	</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

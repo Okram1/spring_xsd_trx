@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+
+   <xs:element name="taxType">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="ctryCde" type="xs:string" minOccurs="1" maxOccurs="1" />
+         <xs:element name="stateCde" type="xs:string" minOccurs="1" maxOccurs="1" />
+         <xs:element name="taxCde" type="xs:string" minOccurs="1" maxOccurs="1" />
+         <xs:element name="taxIsIncl" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+         <xs:element name="taxPcnt" type="xs:double" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="taxData">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="taxType" minOccurs="1" maxOccurs="1" />
+         <xs:element name="taxAmt" type="xs:double" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <!-- Allocation information -->
+   <xs:element name="allocationData01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="allocType" type="xs:integer" minOccurs="1" maxOccurs="1" />
+         <xs:element name="allocAmt" type="xs:double" minOccurs="1" maxOccurs="1" />
+         <xs:element name="allocationComments" type="xs:string" minOccurs="0" maxOccurs="1" />         
+         <xs:element ref="taxData" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element ref="allocationAddOnData" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <!-- Additional allocation info -->
+   <xs:element name="allocationAddOnData">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="empInitials" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="empName" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="empSurname" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="empNo" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="branch" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="account" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="contract" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="claimId" type="xs:integer" minOccurs="0" maxOccurs="1" />
+	      <xs:element name="suppCde" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="genInsClaimId" type="xs:integer" minOccurs="0" maxOccurs="1" />
+         <xs:element name="smanId" type="xs:string" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   
+   <!-- Credit card information -->
+   <xs:element name="creditkrd">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="reference" type="xs:string" minOccurs="1" maxOccurs="1" />
+         <xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1" />
+         <xs:element name="expiryDate" type="xs:long" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <!-- Tender Type information -->
+   <xs:element name="tenderData01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="tenderType" type="xs:integer" minOccurs="1" maxOccurs="1" />
+         <xs:element name="tenderAmt" type="xs:double" minOccurs="1" maxOccurs="1" />
+         <xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="branch" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="account" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="cheqType" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+			<xs:element name="reference" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="negInd" type="xs:boolean" minOccurs="0" maxOccurs="1" /> 
+         <xs:element name="couponTyp" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="couponNo"  type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="creditkrd" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="bankable" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+         <xs:element name="isCredit" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="tenderSplitData01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="bankableNonCc" type="xs:double" minOccurs="1" maxOccurs="1" />
+         <xs:element name="bankableCc" type="xs:double" minOccurs="1" maxOccurs="1" />
+         <xs:element name="nonBankable" type="xs:double" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="payRegData01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <!-- Account Ref information -->
+   <xs:element name="accountData01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="branch" type="xs:string" minOccurs="1" maxOccurs="1" />
+         <xs:element name="account" type="xs:integer" minOccurs="1" maxOccurs="1" />
+         <xs:element name="contract" type="xs:integer" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <!-- Cashup Tender Split information -->
+   <xs:element name="cashupTender01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="tenderType" type="xs:integer" minOccurs="1" maxOccurs="1" />
+         <xs:element name="tenderAmt" type="xs:double" minOccurs="1" maxOccurs="1" />
+         <xs:element name="expectedAmt" type="xs:double" minOccurs="1" maxOccurs="1" />
+	 <xs:element name="bankable" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="deposit">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="refToId" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element name="otherRef" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="bagNo" type="xs:string" minOccurs="0" maxOccurs="1" />
+	 <xs:element name="bookId" type="xs:integer" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="depositAdjUp">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="otherRef" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="adjustedDepAmt" type="xs:double" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="depositAdjDown">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="otherRef" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="genInsClaimId" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="adjAmt" type="xs:double" minOccurs="0" maxOccurs="1" />
+         <xs:element name="adjustedDepAmt" type="xs:double" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="floatAdjustmentUp">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="floatAdjustmentDown">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="pettyCashDraw">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="1" />
+         <xs:element name="givenTo" type="xs:string" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="pettyCashDrawRev">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="pettyCashAllocation">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="allocationData01" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="pettyCashAllocationRev">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="allocationData01" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <!-- Cashup Tender Type information -->
+   <xs:element name="bankTender01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="refToId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+         <xs:element name="reference" type="xs:string" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="cashupUplift">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element name="otherRef" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="bagNo" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="tenderSplitData01" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="bankTender01" minOccurs="0" maxOccurs="unbounded" />
+	 <xs:element name="bookId" type="xs:integer" minOccurs="0" maxOccurs="1" />	 
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="cashup">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="cashupTender01" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element name="otherRef" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="bagNo" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="cashupUsrId" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="tenderSplitData01" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="bankTender01" minOccurs="0" maxOccurs="unbounded" />
+	 <xs:element name="bookId" type="xs:integer" minOccurs="0" maxOccurs="1" />	 
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="cashUpOverage">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="cashupTender01" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="cashUpShortage">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="cashupTender01" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="cashTender">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element ref="glAllocData01" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="receiptRefund">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="cashSaleV01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="cashSaleRefund">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="sundryReceiptV01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="allocationData01" minOccurs="1" maxOccurs="1" />
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element ref="payRegData01" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="initials" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="surname" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="policyNo" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="accountData01" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="sundryReceiptRev">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="allocationData01" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element name="reason" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="initials" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="surname" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="policyNo" type="xs:string" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="depositRegisterV01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="refToId" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <!-- Additional allocation info -->
+   <xs:element name="chequeAddOnData">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="chequeId" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="chequeNo" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="empInitials" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="empName" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="empSurname" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="empNo" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="branch" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="account" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="contract" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="claimId" type="xs:integer" minOccurs="0" maxOccurs="1" />
+         <xs:element name="genInsClaimId" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="vehicle" type="xs:string" minOccurs="0" maxOccurs="1" />
+	 <xs:element name="suppCde" type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element name="reason" type="xs:string" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   
+   <xs:element name="chequeData01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element name="allocType" type="xs:integer" minOccurs="1" maxOccurs="1" />
+         <xs:element name="allocAmt" type="xs:double" minOccurs="1" maxOccurs="1" />
+         <xs:element name="refToId"  type="xs:string" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="taxData" minOccurs="1" maxOccurs="unbounded" />
+         <xs:element ref="chequeAddOnData" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+ 
+   <xs:element name="newChequePaymentVer01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="chequeData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>   
+   
+   <xs:element name="chequeCancelVer01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="chequeData01" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>   
+
+   <xs:element name="tenderSwopVer01">
+      <xs:complexType>
+        <xs:sequence>
+         <xs:element ref="tenderData01" minOccurs="1" maxOccurs="2" />
+         <xs:element ref="tenderSplitData01" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   
+   <xs:element name="glAllocData01">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="1" minOccurs="1" name="glCode" type="xs:string" />
+        <xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double" />
+        <xs:element maxOccurs="1" minOccurs="1" name="taxAmount" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+   </xs:element>
+
+</xs:schema>
+
+
+

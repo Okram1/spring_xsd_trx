@@ -185,11 +185,13 @@ public class TestCashtillTrx {
 			revXml = xmlParser.toXml(trxRev);
 			trxRev = cashtillService.pettyCashDrawRevTrx(revXml);
 		}
+		
 		Date endDate = new Date();
 		long diff = endDate.getTime() - startDate.getTime();
+		
 		log.info("STARTED: " + startDate);
 		log.info("ENDED: " + endDate);
-		log.info("Time taken to process " + (loopCnt * 2) + " transactions is :" + diff + " miliseconds");
+		log.info("Time taken to process " + (loopCnt * 2) + " transactions is : " + diff + " miliseconds");
 		
 	}
 	

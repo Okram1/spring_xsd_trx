@@ -25,7 +25,7 @@ public class RuleValidWhereCondition extends SqlBuilderRule {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(entity);
 		
 		if (whereColumns == null || whereColumns.length == 0) {
-			throw new SqlBuilderException("You must supply the where condition colums");
+			throw new SqlBuilderException("You must supply a valid where condition colums, maybe the table has no PK...");
 		}
 		
 		for (int i = 0; i < whereColumns.length; i++) {

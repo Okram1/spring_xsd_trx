@@ -1,4 +1,4 @@
-package com.argility.cashtill.trx;
+package com.argility.cashtill.trx.basic;
 
 import com.argility.dao.CashTillDAO;
 import com.argility.dao.CashTranDAO;

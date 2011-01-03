@@ -1,5 +1,6 @@
 package com.argility.cashtill.trx;
 
+import com.argility.cashtill.trx.basic.BasicCashtillTrx;
 import com.argility.dao.CashTillDAO;
 import com.argility.dao.entity.CashTillEntity;
 import com.argility.master.trxengine.iface.TransactionInterface;

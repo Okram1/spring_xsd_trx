@@ -1,5 +1,6 @@
 package com.argility.cashtill.trx;
 
+import com.argility.cashtill.trx.basic.BasicCashtillTrx;
 import com.argility.dao.entity.CashTillEntity;
 import com.argility.dao.entity.CashTranEntity;
 import com.argility.dao.entity.CupTendEntity;

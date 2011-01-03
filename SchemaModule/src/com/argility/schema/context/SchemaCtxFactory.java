@@ -2,7 +2,7 @@ package com.argility.schema.context;
 
 import org.apache.log4j.Logger;
 
-import com.argility.master.service.SpringContextFactory;
+import com.argility.master.context.SpringContextFactory;
 
 public abstract class SchemaCtxFactory {
 	static Logger log = Logger.getLogger(SchemaCtxFactory.class.getName());

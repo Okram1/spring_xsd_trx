@@ -39,5 +39,17 @@
 	    	</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	
+	<xs:element name="com.argility.cashtill.trx.PettyCashDrawRevTrx">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element ref="actH01" maxOccurs="1" />
+					<xs:element ref="clientActH01" maxOccurs="1" />
+	    		</xs:choice>
+	    		<xs:element ref="pettyCashDrawRev" minOccurs="1" maxOccurs="1" />
+	    	</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 
 </xs:schema>

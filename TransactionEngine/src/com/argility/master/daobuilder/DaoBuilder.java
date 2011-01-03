@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
-import com.argility.master.service.SpringContextFactory;
+import com.argility.master.context.SpringContextFactory;
 
 public class DaoBuilder {
 

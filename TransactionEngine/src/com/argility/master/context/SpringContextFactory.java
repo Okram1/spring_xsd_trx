@@ -1,4 +1,4 @@
-package com.argility.master.service;
+package com.argility.master.context;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;

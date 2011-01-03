@@ -28,8 +28,5 @@
 		
 	<bean id="auditService" class="com.argility.master.audit.AuditServiceImpl" 
 		parent="abstractService"/>
-		
-	<bean id="auditUpdateDAO" class="com.argility.master.dao.impl.AuditUpdateDAOImpl" 
-		parent="abstractDAO"/>
 	
 </beans>

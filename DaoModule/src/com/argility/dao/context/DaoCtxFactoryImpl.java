@@ -1,6 +1,6 @@
 package com.argility.dao.context;
 
-import com.argility.master.service.SpringContextFactory;
+import com.argility.master.context.SpringContextFactory;
 
 public class DaoCtxFactoryImpl extends DaoCtxFactory {
 

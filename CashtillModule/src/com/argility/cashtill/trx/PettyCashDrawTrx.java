@@ -46,7 +46,7 @@ public class PettyCashDrawTrx extends BasicCashtillTrx {
 			getCupTendDAO().insertEntity(getActH01(), cupTendEnt, true);
 			getPettyDrawDAO().insertEntity(getActH01(), pettyDraw);
 			
-			if (true) throw new TransactionException("Stopped");
+			//if (true) throw new TransactionException("Stopped");
 			
 		} catch (Exception e) {
 			throw new TransactionException(e.getMessage());

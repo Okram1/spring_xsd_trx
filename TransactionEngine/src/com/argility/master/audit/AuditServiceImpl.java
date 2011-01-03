@@ -50,6 +50,8 @@ public class AuditServiceImpl extends AbstractService implements AuditService {
 				oboIn != null ? oboIn.getOboAudId() : null,
 				oboIn != null ? oboIn.getOboBrCde() : null,
 				tranData.getBuildNumber());
+		
+		insertAudmth(trx);
 
 	}
 	
@@ -85,6 +87,15 @@ public class AuditServiceImpl extends AbstractService implements AuditService {
 		
 		trx.getActH01().addSqlStatement(ps.toString());
 		
+	}
+	
+	public void insertAudmth(TransactionInterface trx) {
+		if (trx.getActionType() == 5155) {
+			log.info("Type is 5155, not adding an audmth entry.");
+			return;
+		}
+		
+		getJdbcTemplate().update("INSERT INTO audmth (aud_id) VALUES (?)", new Object[] {trx.getAuditId()} );
 	}
 
 	public JdbcTemplate getJdbcTemplate() {

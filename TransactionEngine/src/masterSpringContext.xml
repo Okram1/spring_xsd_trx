@@ -22,7 +22,6 @@
 		<property name="transactionService" ref="transactionService" />
 		<property name="branchInfoService" ref="branchInfoService" />
 		<property name="auditService" ref="auditService" />
-		<property name="auditUpdateDAO" ref="auditUpdateDAO" />
 	</bean>
 	
 	<bean id="abstractService" class="com.argility.master.service.AbstractService" abstract="true">

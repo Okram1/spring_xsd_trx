@@ -3,7 +3,7 @@ package com.argility.cashtill.context;
 import org.apache.log4j.Logger;
 
 import com.argility.cashtill.service.CashtillService;
-import com.argility.master.service.SpringContextFactory;
+import com.argility.master.context.SpringContextFactory;
 
 public abstract class CashtillCtxFactory {
 

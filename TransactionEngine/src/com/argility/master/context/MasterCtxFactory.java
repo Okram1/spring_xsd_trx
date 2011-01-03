@@ -4,11 +4,15 @@ import org.apache.log4j.Logger;
 
 import com.argility.master.audit.AuditService;
 import com.argility.master.branch.BranchInfoService;
-import com.argility.master.service.SpringContextFactory;
 import com.argility.master.trxengine.iface.TransactionService;
 import com.argility.master.trxengine.iface.XmlParserIface;
 import com.argility.master.trxlogger.TrxLogger;
 
+/**
+ * This factory is used to retrieve any master objects from the application context
+ * @author marko.salic
+ *
+ */
 public abstract class MasterCtxFactory {
 	static Logger log = Logger.getLogger(MasterCtxFactory.class.getName());
 

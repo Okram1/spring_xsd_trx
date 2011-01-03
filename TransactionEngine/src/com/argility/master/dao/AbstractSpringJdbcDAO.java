@@ -81,7 +81,7 @@ public abstract class AbstractSpringJdbcDAO<T> {
 		// Build the insert SQL
 		String sql = sqlBuilder.buildInsertSql(insertColumns, getTableName());
 		
-		log.info("Executing insert: " + sql);
+		//log.info("Executing insert: " + sql);
 		getNamedJdbcTemplate().execute(sql, getSqlParamSource(entity), new ReplicationSessionCallback<ReplicationSession>(actH01));
 		return entity;
 	}
@@ -116,7 +116,7 @@ public abstract class AbstractSpringJdbcDAO<T> {
 				getTableName(), 
 				ignoreIncOnUpdate);
 		
-		log.info("Executing update: " + sql);
+		//log.info("Executing update: " + sql);
 		getNamedJdbcTemplate().execute(sql, getSqlParamSource(entity), new ReplicationSessionCallback<ReplicationSession>(actH01));
 		return entity;
 	}
@@ -127,7 +127,7 @@ public abstract class AbstractSpringJdbcDAO<T> {
 		rules.checkRules();
 		
 		String sql = sqlBuilder.buildDeleteSql(whereColumns, getTableName(), orOperationForWhereCondition);
-		log.info("Executing delete: " + sql);
+		//log.info("Executing delete: " + sql);
 		getNamedJdbcTemplate().execute(sql, getSqlParamSource(entity), new ReplicationSessionCallback<ReplicationSession>(actH01));
 		return entity;
 	}

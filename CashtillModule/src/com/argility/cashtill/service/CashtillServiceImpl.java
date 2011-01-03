@@ -1,6 +1,7 @@
 package com.argility.cashtill.service;
 
 import com.argility.cashtill.trx.CreateCashtillTrx;
+import com.argility.cashtill.trx.PettyCashDrawRevTrx;
 import com.argility.cashtill.trx.PettyCashDrawTrx;
 import com.argility.master.service.AbstractService;
 import com.argility.master.trxengine.iface.exception.TransactionException;
@@ -31,6 +32,21 @@ public class CashtillServiceImpl extends AbstractService implements
 		
 		try {
 			trx = (PettyCashDrawTrx)getXmlParser().fromXml(trxXml);
+			getTransactionService().executeTransaction(trx);
+		} catch (Exception e) {
+			throw new TransactionException(e.getMessage());
+		}
+		
+		return trx;
+	}
+
+	@Override
+	public PettyCashDrawRevTrx pettyCashDrawRevTrx(String trxXml)
+			throws TransactionException {
+		PettyCashDrawRevTrx trx = null;
+		
+		try {
+			trx = (PettyCashDrawRevTrx)getXmlParser().fromXml(trxXml);
 			getTransactionService().executeTransaction(trx);
 		} catch (Exception e) {
 			throw new TransactionException(e.getMessage());

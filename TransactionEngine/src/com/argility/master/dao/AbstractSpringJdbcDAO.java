@@ -86,7 +86,7 @@ public abstract class AbstractSpringJdbcDAO<T> {
 		return entity;
 	}
 	
-	public T executeUpdate(ActH01 actH01, 
+	private T executeUpdate(ActH01 actH01, 
 			T entity, 
 			String[] updateColumns, 
 			String[] whereColumns, 

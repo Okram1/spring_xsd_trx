@@ -4,10 +4,10 @@ import com.argility.master.trxengine.header.ActH01;
 import com.argility.master.trxengine.iface.exception.TransactionException;
 
 /**
- * 
- * @author marko.salic Main transaction interface, ALL transactions must
- *         implement this interface so they can be used with the
- *         TransactionService
+ * 	Main transaction interface, ALL transactions must
+ *  implement this interface so they can be used with the
+ *  TransactionService
+ * @author marko.salic 
  */
 public interface TransactionInterface {
 

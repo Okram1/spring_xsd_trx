@@ -1,7 +1,6 @@
 package com.argility.cashtill.trx.main;
 
 import java.math.BigInteger;
-import java.sql.SQLException;
 import java.util.Date;
 
 import org.apache.log4j.Logger;

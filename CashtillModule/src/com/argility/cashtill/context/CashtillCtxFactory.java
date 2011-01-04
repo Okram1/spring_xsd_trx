@@ -7,7 +7,7 @@ import com.argility.master.context.SpringContextFactory;
 
 public abstract class CashtillCtxFactory {
 
-static Logger log = Logger.getLogger(CashtillCtxFactory.class.getName());
+	protected static Logger log = Logger.getLogger(CashtillCtxFactory.class.getName());
 	
 	private static String CONTEXT_NAME = "cashtillCtxFactory";
 	private static CashtillCtxFactory instance;

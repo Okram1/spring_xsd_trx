@@ -6,9 +6,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 
- * @author marko.salic Spring context factory is the entry point into our spring
- *         application context, the context is a singleton and will ony be
- *         instantiated once
+ * Spring context factory is the entry point into our spring
+ * application context, the context is a singleton and will only be
+ * instantiated once per JVM
  */
 public class SpringContextFactory {
 

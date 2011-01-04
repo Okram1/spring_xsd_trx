@@ -1,5 +1,8 @@
 package com.argility.cashtill.trx;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import com.argility.cashtill.trx.basic.BasicCashtillTrx;
 import com.argility.dao.entity.CashTillEntity;
 import com.argility.dao.entity.CashTranEntity;
@@ -12,13 +15,14 @@ import com.argility.schema.cashtill.generated.TenderData01;
 
 /**
  * Transaction is executed when a petty cash withdrawal is done
- * @author Mare
+ * @author marko.salic
  *
  */
 public class PettyCashDrawTrx extends BasicCashtillTrx {
 
 	public static int ACTION_TYP = 1235;
 	
+	// Object holding data required for this transaction
 	private PettyCashDraw pettyCashDraw;
 	
 	@Override
@@ -34,7 +38,11 @@ public class PettyCashDrawTrx extends BasicCashtillTrx {
 			TenderData01 tender = getPettyCashDraw().getTenderData01();
 			String usrId = getActH01().getUiD01().getUserId();
 			
-			// Build entities
+			if (tender.getTenderAmt() > 0) {
+				tender.setTenderAmt(tender.getTenderAmt() * -1);
+			}
+			
+			// Build entities we want to persist to the database
 			CashTranEntity ctranEnt = getCashTillEntity(usrId, tender.getTenderAmt(), 0.0, false);
 			CashTillEntity ctillEnt = getUpdateCashTillEntity(usrId, tender.getTenderAmt());
 			CupTendEntity cupTendEnt = getCupTendEntity(tender);
@@ -47,6 +55,7 @@ public class PettyCashDrawTrx extends BasicCashtillTrx {
 			getCupTendDAO().insertEntity(getActH01(), cupTendEnt, true);
 			getPettyDrawDAO().insertEntity(getActH01(), pettyDraw);
 			
+			// testing
 			//if (true) throw new TransactionException("Stopped");
 			
 		} catch (Exception e) {

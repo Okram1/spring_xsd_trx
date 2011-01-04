@@ -15,6 +15,7 @@ import com.argility.master.context.MasterCtxFactory;
  * 
  * @author marko.salic Abstract DAO is a class that all other dao's should
  *         extend, all common functionality to all DAO's goes into this template
+ *         REPLACED BY abstractSpringJdbcDAO
  */
 public abstract class AbstractDAO  {
 

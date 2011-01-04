@@ -3,6 +3,7 @@ package com.argility.master.audit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -28,6 +29,7 @@ public class AuditServiceImpl extends AbstractService implements AuditService {
 		OboInData01 oboIn = actHeader.getOboInData01();
 		
 		BranchInfo brInfo = getOwnBranchInfo();
+		Date docDate = new Date(tranData.getDocDate());
 		
 		String insertAuditSql = "INSERT INTO audit(aud_id, " 
 				+ "grp_cde, "
@@ -37,8 +39,11 @@ public class AuditServiceImpl extends AbstractService implements AuditService {
 				+ "aud_device_id, "
 				+ "obo_aud_id, " 
 				+ "obo_br_cde, "
-				+ "aud_build_number) "
-				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "aud_build_number," 
+				+ "br_cde, " 
+				+ "aud_doc_no, "
+				+ "aud_doc_ts) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		getJdbcTemplate().update(insertAuditSql, 
 				trx.getAuditId(),
@@ -49,7 +54,10 @@ public class AuditServiceImpl extends AbstractService implements AuditService {
 				uid.getDeviceId(),
 				oboIn != null ? oboIn.getOboAudId() : null,
 				oboIn != null ? oboIn.getOboBrCde() : null,
-				tranData.getBuildNumber());
+				tranData.getBuildNumber(),
+				brInfo.getBrCde(),
+				tranData.getDocNo(),
+				docDate);
 		
 		insertAudmth(trx);
 

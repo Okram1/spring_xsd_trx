@@ -21,6 +21,12 @@ import com.argility.master.trxengine.iface.exception.TransactionException;
 import com.argility.master.trxengine.iface.exception.ValidationFailedException;
 import com.thoughtworks.xstream.XStream;
 
+/**
+ * Xstream implementation of the xml parser used for serializing object from and to xml
+ * 
+ * @author marko.salic
+ *
+ */
 public class XmlParserXstreamImpl implements XmlParserIface {
 
 	protected transient Logger log = Logger

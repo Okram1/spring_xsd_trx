@@ -3,9 +3,9 @@ package com.argility.master.branch;
 import java.sql.SQLException;
 
 /**
- * 
- * @author marko.salic Used to retrieve branch info for the current or other
- *         branches
+ * Used to retrieve branch info for the current or other branches
+ *         
+ * @author marko.salic 
  */
 public interface BranchInfoService {
 

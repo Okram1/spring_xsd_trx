@@ -16,10 +16,10 @@ import com.argility.master.trxengine.iface.XmlParserIface;
 import com.argility.master.trxlogger.TrxLogger;
 
 /**
- * 
- * @author marko.salic This is the base service that ALL other service should
- *         extend, it encapsulates common logic and allows us to easily add
- *         common functionality to all our services
+ * This is the base service that ALL other service should
+ * extend, it encapsulates common logic and allows us to easily add
+ * common functionality to all our services
+ * @author marko.salic 
  */
 @Transactional
 public abstract class AbstractService {

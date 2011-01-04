@@ -3,10 +3,15 @@ package com.argility.master.dao.sqlbuilder;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Postgres implementation of the sql builder
+ * 
+ * @author marko.salic
+ *
+ */
+public class JdbcSqlBuilderPostgresImpl implements JdbcSqlBuilder {
 
-public class JdbcSqlBuilderImpl implements JdbcSqlBuilder {
-
-	public JdbcSqlBuilderImpl() {
+	public JdbcSqlBuilderPostgresImpl() {
 		
 	}
 	

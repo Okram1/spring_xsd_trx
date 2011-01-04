@@ -12,7 +12,7 @@ public abstract class DaoCtxFactory {
 
 	public static DaoCtxFactory getInstance() {
 		if (instance == null) {
-			log.info("Creating a new instance of ServiceFactory");
+			log.info("Creating a new instance of DaoCtxFactory");
 			instance = SpringContextFactory.getApplicationContext().getBean(
 					CONTEXT_NAME, DaoCtxFactory.class);
 		}

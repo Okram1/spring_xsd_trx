@@ -162,7 +162,7 @@ public class TestCashtillTrx {
 	public void stressTestPettyCash() throws Exception {
 		CashtillService cashtillService = CashtillCtxFactory.getInstance().getCashtillService();
 		XmlParserIface xmlParser = MasterCtxFactory.getInstance().getXmlParser();
-		BranchInfo brInfo = MasterCtxFactory.getInstance().getBranchInfoService().getOwnBranchProfile();
+		MasterCtxFactory.getInstance().getBranchInfoService().getOwnBranchProfile();
 		
 		PettyCashDrawTrx trxDraw = null;
 		PettyCashDrawRevTrx trxRev = null;
@@ -170,7 +170,7 @@ public class TestCashtillTrx {
 		String drawXml = null;
 		String revXml = null;
 		
-		int loopCnt = 50;
+		int loopCnt = 5;
 		
 		Date startDate = new Date();
 		log.info("STARTED: " + startDate);
@@ -199,12 +199,13 @@ public class TestCashtillTrx {
 	 */
 	public static void main(String[] args) {
 		TestCashtillTrx tt = new TestCashtillTrx();
-		//tt.testCreateCashtillTrx();
-		//tt.testPettyCashDrawTrx();
-		//tt.testPettyCashDrawRevTrx();
-		//tt.createDrawAndReversal();
+		
 		try {
-			tt.stressTestPettyCash();
+			//tt.testCreateCashtillTrx();
+			tt.testPettyCashDrawTrx();
+			//tt.testPettyCashDrawRevTrx();
+			//tt.createDrawAndReversal();
+			//tt.stressTestPettyCash();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

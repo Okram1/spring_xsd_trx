@@ -1,5 +1,11 @@
 package com.argility.master.dao.sqlbuilder;
 
+/**
+ * Used to build the SQL statements for persisting entities
+ * 
+ * @author marko.salic
+ *
+ */
 public interface JdbcSqlBuilder {
 
 	public abstract String buildInsertSql(String[] columns, String table);

@@ -49,12 +49,9 @@ public class TransactionServiceImpl extends AbstractService implements
 
 	private TransactionInterface executeTransaction(TransactionInterface trx, boolean validate)
 			throws TransactionException, ValidationFailedException {
-		
-		//JDBCReplicationSession session = null;
 
 		String auditXml = null;
 		AuditService auditService = null;
-		//Connection conn = null;
 		
 		try {
 
@@ -63,11 +60,10 @@ public class TransactionServiceImpl extends AbstractService implements
 				throw new TransactionException("VALIDATION", new Exception("No ClientActH01 on the transaction...\n "), trx);
 			}
 			
-			// Validate the client xml before execution
+			// Validate the client xml before execution, only if we haven't validated already
 			if (validate) getXmlParser().validateTrx(trx);
 			
-			//conn = getConnection();
-			//session = new JDBCReplicationSession(conn);
+			// Retrieve the auditing service
 			auditService = MasterCtxFactory.getInstance().getAuditService();
 
 			// Run conversion from client action header to a server header
@@ -76,13 +72,12 @@ public class TransactionServiceImpl extends AbstractService implements
 			// Insert the audit table entry
 			auditService.insertAudit(trx);
 
-			// Execute the transaction logic
+			// Execute the transaction specific logic
 			trx.executeWrite();
 
 			// We could use the tran profile and header to set certain flags
 			// and/or some tags that would trigger an automatic write to
-			// relevant tables, such as if oboDetails exist the use them or if
-			// isCash is true write to cash_tran etc...
+			// relevant tables, such as if oboDetails exist then use them etc...
 			executeTranDefaultUpdates(trx);
 
 			// Get the audit xml, at the same time run validation of the server xml against an xsd
@@ -90,6 +85,7 @@ public class TransactionServiceImpl extends AbstractService implements
 
 			// Set the audit xml on the transaction
 			trx.setAuditXml(auditXml);
+			
 			// Set replication xml on the transaction
 			trx.setReplicationXml(getReplicationXml(trx));
 
@@ -98,24 +94,25 @@ public class TransactionServiceImpl extends AbstractService implements
 			auditService.updateAuditRepicationAndXml(trx.getAuditXml(),
 					trx.getReplicationXml(), trx.getAuditId());
 
+			// Print what the final transaction audxml/rep is
 			log.info("REPLICATION IS: \n" + trx.getReplicationXml());
 			log.info("AUDIT XML IS: \n" + trx.getAuditXml());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new TransactionException("SQL" ,e, trx);
+			throw new TransactionException("SQL" ,e, trx); // Will log to the tran_exception_log table
 		} catch (ValidationFailedException e) {
 			e.printStackTrace();
-			throw new ValidationFailedException("VALIDATION", e, trx);
+			throw new ValidationFailedException("VALIDATION", e, trx); // Will log to the tran_exception_log table
 		} catch (TransactionException e) {
 			e.printStackTrace();
-			throw new TransactionException("TRANSACTION", e , trx);
+			throw new TransactionException("TRANSACTION", e , trx); // Will log to the tran_exception_log table
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (e.getCause() != null && e.getCause() instanceof SQLException) {
-				throw new TransactionException("SQL" , e, trx);
+				throw new TransactionException("SQL" , e, trx); // Will log to the tran_exception_log table
 			}
-			throw new TransactionException("UNKNOWN", e , trx);
+			throw new TransactionException("UNKNOWN", e , trx); // Will log to the tran_exception_log table
 		} 
 
 		return trx;
@@ -186,7 +183,7 @@ public class TransactionServiceImpl extends AbstractService implements
 	
 	public void executeTranDefaultUpdates(TransactionInterface trx) throws SQLException {
 		
-		// If we have obo details then this must be a switching transaction and we must writ into obo_hist
+		// If we have obo details then this must be a switching transaction and we must write into obo_hist
 		if (trx.getActH01().getOboInData01() != null) {
 			MasterCtxFactory.getInstance().getAuditService().insertOboHistEntry(trx);
 		}

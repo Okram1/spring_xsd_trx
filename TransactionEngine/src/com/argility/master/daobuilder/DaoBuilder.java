@@ -35,8 +35,18 @@ public class DaoBuilder {
 
 	public StringBuffer springConfig = new StringBuffer();
 	
+	public DataSource ds = null;
+	public String saveLocation = null;
+	public String pckg = null;
+	
 	public DaoBuilder() {
 		
+	}
+	
+	public DaoBuilder(DataSource ds, String saveLocation, String pckg) {
+		this.ds = ds;
+		this.saveLocation = saveLocation;
+		this.pckg = pckg;
 	}
 	
 	public ClassBuilder getEntityClass(String table, String pckg, JdbcTableMetaData tmd) throws Exception {
@@ -322,19 +332,21 @@ public class DaoBuilder {
 	}
 	
 	public static void main(String[] args) {
-		String saveLoc = "d:\\DAO\\";
-		saveLoc = "C:\\Users\\Mare\\Documents\\workspace_cordys\\DaoModule\\src\\";
+		String saveLoc = null;
+		//saveLoc = "C:\\Users\\Mare\\Documents\\workspace_cordys\\DaoModule\\src\\";
+		
+		saveLoc = "/home/UCS-SOFTWARE/marko.salic/ws_cordys/cordys_retail_src/DaoModule/src/";
+		String pckg = "com.argility";
+		
 		boolean onlyBaseClasses = false;
 		boolean generateALLDaos = false;
+		
+		String[] tables = new String[] {"cash_tran", "cup_tend", "cash_till", "petty_draw"};
 		
 		DaoBuilder db = new DaoBuilder();
 		//TODO - move this logic into a calling class
 		DataSource dataSource = SpringContextFactory.getApplicationContext().getBean(
 				javax.sql.DataSource.class);
-		
-		String pckg = "com.argility";
-
-		String[] tables = new String[] {"cash_tran", "cup_tend", "cash_till", "petty_draw"};
 				
 		try {
 			MetaDataBuilder mdb = new MetaDataBuilder(dataSource);

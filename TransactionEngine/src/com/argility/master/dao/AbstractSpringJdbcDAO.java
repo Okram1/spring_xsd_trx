@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.argility.master.dao.sqlbuilder.JdbcSqlBuilder;
-import com.argility.master.dao.sqlbuilder.JdbcSqlBuilderImpl;
+import com.argility.master.dao.sqlbuilder.JdbcSqlBuilderPostgresImpl;
 import com.argility.master.dao.sqlbuilder.rules.RuleColumnExceptPkNotNull;
 import com.argility.master.dao.sqlbuilder.rules.RuleColumnsNotNull;
 import com.argility.master.dao.sqlbuilder.rules.RuleColumnsValidForTable;
@@ -23,12 +23,19 @@ import com.argility.master.dao.sqlbuilder.rules.SqlBuilderRule;
 import com.argility.master.trxengine.header.ActH01;
 import com.argility.master.util.StringUtils;
 
+/**
+ * Main DAO implementation, this dao will handle all operations from the BasicEntityDAO interface and all other daos
+ * should extend it to inherit functionality
+ *
+ * @param <T>
+ * 		This is the entity the DAO extending this class will handle
+ */
 public abstract class AbstractSpringJdbcDAO<T> {
 
 	protected transient Logger log = Logger
 			.getLogger(this.getClass().getName());
 
-	public JdbcSqlBuilder sqlBuilder = new JdbcSqlBuilderImpl();
+	public JdbcSqlBuilder sqlBuilder = new JdbcSqlBuilderPostgresImpl();
 
 	private JdbcTemplate jdbcTemplate;
 	private NamedParameterJdbcTemplate namedJdbcTemplate;
@@ -60,6 +67,20 @@ public abstract class AbstractSpringJdbcDAO<T> {
 				new ReplicationSessionCallback<ReplicationSession>(actH01));
 	}
 	
+	/**
+	 * This is the main insert method, insert rules will be applied
+	 * 
+	 * @param actH01
+	 * 		Transaction action header, this is where the replication SQL will we written
+	 * @param entity
+	 * 		entity we wish to persist
+	 * @param columns
+	 * 		Columns we wish to persist
+	 * @param ignoreNullFields
+	 * 		Do we want to ignore all null fields and not write them to the db, allowing the column defaults 
+	 * 		to be applied
+	 * @return
+	 */
 	private T executeInsert(ActH01 actH01, T entity, String[] columns, boolean ignoreNullFields) {
 		
 		// Apply global insert rules
@@ -86,6 +107,24 @@ public abstract class AbstractSpringJdbcDAO<T> {
 		return entity;
 	}
 	
+	/**
+	 * This is the main update method, update rules will be applied
+	 * 
+	 * @param actH01
+	 * 		Transaction action header, this is where the replication SQL will we written
+	 * @param entity
+	 * 		entity we wish to persist
+	 * @param columns
+	 * 		Columns we wish to persist
+	 * @param whereColumns
+	 * 		These columns will be used to build the WHERE condition
+	 * @param ignoreNullFields
+	 * 		Do we want to ignore all null fields and not write them to the db, allowing the column defaults 
+	 * 		to be applied
+	 * @param ignoreIncOnUpdate
+	 * 		Override increment on update and insert the fields as is on the entity
+	 * @return
+	 */
 	private T executeUpdate(ActH01 actH01, 
 			T entity, 
 			String[] updateColumns, 
@@ -121,6 +160,19 @@ public abstract class AbstractSpringJdbcDAO<T> {
 		return entity;
 	}
 	
+	/**
+	 * Main delete method, delete rules will be applied
+	 * 
+	 * @param actH01
+	 * 		Transaction action header, this is where the replication SQL will we written
+	 * @param entity
+	 * 		entity we wish to remove
+	 * @param whereColumns
+	 * 		These columns will be used to build the WHERE condition
+	 * @param orOperationForWhereCondition
+	 * 		Do we want an OR instead of an OR to be used in the where condition
+	 * @return
+	 */
 	private T executeDelete(ActH01 actH01, T entity, String[] whereColumns, boolean orOperationForWhereCondition) {
 		RuleValidWhereCondition rules = new RuleValidWhereCondition(entity, whereColumns, getTableName());
 		
@@ -132,6 +184,15 @@ public abstract class AbstractSpringJdbcDAO<T> {
 		return entity;
 	}
 	
+	/**
+	 * 
+	 * @param columns
+	 * 		Columns that must be checked
+	 * @param entity
+	 * 		Entity holding the data for the columns, any nulls will be excluded
+	 * @return
+	 * 		Columns with all the null fields excluded
+	 */
 	private String[] excludeNullColumns(String[] columns, T entity) {
 		List<String> list = new ArrayList<String>();
 		SqlParameterSource param = new BeanPropertySqlParameterSource(entity);
@@ -147,6 +208,13 @@ public abstract class AbstractSpringJdbcDAO<T> {
 		return list.toArray(new String[list.size()]);
 	}
 	
+	/**
+	 * Method builds a paramater map for our sql from the given entity bean 
+	 * 
+	 * @param entity
+	 * 		Entity holding data
+	 * @return
+	 */
 	private SqlParameterSource getSqlParamSource(T entity) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(entity);
 		return param;

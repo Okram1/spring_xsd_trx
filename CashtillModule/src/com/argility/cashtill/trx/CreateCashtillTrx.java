@@ -6,6 +6,11 @@ import com.argility.dao.entity.CashTillEntity;
 import com.argility.master.trxengine.iface.TransactionInterface;
 import com.argility.master.trxengine.iface.exception.TransactionException;
 
+/**
+ * Used to create a new cash_till entry for a user
+ * @author marko.salic
+ *
+ */
 public class CreateCashtillTrx extends BasicCashtillTrx {
 
 	public static int ACTION_TYP = 106000; 

@@ -5,8 +5,8 @@ import com.argility.master.trxengine.iface.exception.ValidationFailedException;
 
 /**
  * 
- * @author marko.salic This services follows a commendPattern approach and is
- *         used to execute transaction logic
+ * This services follows a command pattern approach and is used to execute transaction logic for 
+ * all transaction interface implementaions
  */
 public interface TransactionService {
 

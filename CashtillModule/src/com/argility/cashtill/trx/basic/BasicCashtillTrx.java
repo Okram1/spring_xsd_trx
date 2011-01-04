@@ -12,7 +12,14 @@ import com.argility.master.trxengine.AbstractTransaction;
 import com.argility.schema.cashtill.generated.TenderData01;
 import com.argility.schema.context.SchemaCtxFactory;
 
-
+/**
+ * Base cashtill transaction, should be used to add all common cashtill logic 
+ * that can be shared by all cashtill transaction, such as getting the cashtill DAO's
+ * and building common cashtill entities such as cash_tran... Schema locations.
+ * 
+ * @author marko.salic
+ *
+ */
 public abstract class BasicCashtillTrx extends AbstractTransaction {
 
 	@Override

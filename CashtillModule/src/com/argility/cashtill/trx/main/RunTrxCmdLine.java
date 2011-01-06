@@ -2,14 +2,16 @@ package com.argility.cashtill.trx.main;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.sql.SQLException;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 
 import com.argility.master.context.MasterCtxFactory;
+import com.argility.master.context.SpringContextFactory;
 import com.argility.master.trxengine.iface.TransactionInterface;
 import com.argility.master.trxengine.iface.TransactionService;
 import com.argility.master.trxengine.iface.exception.TransactionException;
@@ -70,10 +72,38 @@ public class RunTrxCmdLine {
 			System.exit(0);
 		}
 		
-		log.info("Executing: " + xml);
-		int audId = run.runTransaction(xml);
+		int times = 1;
+		if (args.length > 1) {
+			times = Integer.parseInt(args[1]);
+		}
 		
-		log.info("Write audit: " + audId);
+		SpringContextFactory.getApplicationContext(); // Init context
+		try {
+			MasterCtxFactory.getInstance().getBranchInfoService().getOwnBranchProfile(); // init br prof
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		Date startDate = new Date();
+		log.warn("STARTED: " + startDate);
+		
+		log.info("Executing: " + xml);
+		for (int x = 0; x < times; x++) {
+			Date st = new Date();
+			log.info("RUN NUMBER : " + x);
+			int audId = run.runTransaction(xml);
+			
+			log.info("Wrote audit: " + audId);
+			Date end = new Date();
+			log.info("Loop: " + x + " took " + (end.getTime() - st.getTime()) + " ms");
+		}
+		
+		Date endDate = new Date();
+		long diff = endDate.getTime() - startDate.getTime();
+		
+		log.warn("STARTED: " + startDate);
+		log.warn("ENDED: " + endDate);
+		log.warn("Time taken to process " + times + " transactions is : " + diff + " miliseconds");
 
 	}
 }

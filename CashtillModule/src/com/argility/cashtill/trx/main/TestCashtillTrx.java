@@ -114,6 +114,8 @@ public class TestCashtillTrx {
 		
 		String trxXml = MasterCtxFactory.getInstance().getXmlParser().toXml(trx);
 		
+		log.info("TRX XML IS: \n" + trxXml);
+		
 		// We can use either the cashtill service or transaction service
 		CashtillService cashtillService = CashtillCtxFactory.getInstance().getCashtillService();
 		trx = cashtillService.pettyCashDrawTrx(trxXml);
@@ -236,11 +238,11 @@ public class TestCashtillTrx {
 		
 		try {
 			//tt.testCreateCashtillTrx();
-			//tt.testPettyCashDrawTrx();
+			tt.testPettyCashDrawTrx();
 			//tt.testPettyCashDrawRevTrx();
 			//tt.createDrawAndReversal();
 			//tt.stressTestPettyCash();
-			tt.stressTestPettyCashDrawTrx();
+			//tt.stressTestPettyCashDrawTrx();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -16,6 +16,7 @@
 
 	<context:property-placeholder location="classpath*:META-INF/spring/*.properties" />
 
+	<!-- Setup our datasource -->
 	<bean class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" id="dataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
@@ -31,6 +32,7 @@
 		<property name="maxActive" value="5" />
 		<property name="maxIdle" value="3" />
 
+		<!-- Connection pool validation -->
 		<property name="validationQuery" value="SELECT 1" />
 		<property name="testWhileIdle" value="true" />
 		<property name="timeBetweenEvictionRunsMillis" value="1200000" />
@@ -42,14 +44,17 @@
 	<!-- enable the configuration of transactional behavior based on annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
-	<!-- Setup our transaction manager to be a datasource tm -->
+	<!-- Setup our transaction manager to be a datasource transaction manager -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<!-- Import all the services we provide -->
-	<import resource="classpath*:*SpringContext.xml" /> <!-- Any xml file matching given regex will be loaded-->
-	<!-- <import resource="webservices.xml"/> -->
+	<!-- Import all the services we provide, ie, import any modules on the classpath with a *SpringContext.xml-->
+	<!-- import resource="classpath*:*SpringContext.xml" /--> <!-- Any xml file matching given regex will be loaded-->
+	<import resource="masterSpringContext.xml"/>
+	<import resource="daoSpringContext.xml"/>
+	<import resource="schemaSpringContext.xml"/>
+	<import resource="cashtillSpringContext.xml"/>
 	
 </beans>

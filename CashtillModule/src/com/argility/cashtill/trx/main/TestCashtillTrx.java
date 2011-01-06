@@ -1,6 +1,7 @@
 package com.argility.cashtill.trx.main;
 
 import java.math.BigInteger;
+import java.sql.SQLException;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -10,7 +11,6 @@ import com.argility.cashtill.service.CashtillService;
 import com.argility.cashtill.trx.CreateCashtillTrx;
 import com.argility.cashtill.trx.PettyCashDrawRevTrx;
 import com.argility.cashtill.trx.PettyCashDrawTrx;
-import com.argility.master.branch.BranchInfo;
 import com.argility.master.context.MasterCtxFactory;
 import com.argility.master.trxengine.header.ActH01;
 import com.argility.master.trxengine.header.RefToInfo01;
@@ -124,6 +124,40 @@ public class TestCashtillTrx {
 		return trx;
 	}
 	
+	public PettyCashDrawTrx stressTestPettyCashDrawTrx() throws SQLException {
+		
+		MasterCtxFactory.getInstance().getBranchInfoService().getOwnBranchProfile();
+		PettyCashDrawTrx trx = getPettyCashDrawTrx();
+		
+		String trxXml = MasterCtxFactory.getInstance().getXmlParser().toXml(trx);
+		
+		// We can use either the cashtill service or transaction service
+		CashtillService cashtillService = CashtillCtxFactory.getInstance().getCashtillService();
+		
+		int loopCnt = 100;
+		
+		Date startDate = new Date();
+		log.warn("STARTED: " + startDate);
+		for (int x = 0; x< loopCnt; x++) {
+			Date st = new Date();
+			trx = cashtillService.pettyCashDrawTrx(trxXml);
+			Date end = new Date();
+			log.warn("Loop: " + x + " took " + (end.getTime() - st.getTime()) + " ms");
+		}
+		
+		Date endDate = new Date();
+		long diff = endDate.getTime() - startDate.getTime();
+		
+		log.warn("STARTED: " + startDate);
+		log.warn("ENDED: " + endDate);
+		log.warn("Time taken to process " + loopCnt + " transactions is : " + diff + " miliseconds");
+		
+		//TransactionService service = MasterCtxFactory.getInstance().getTransactionService();
+		//service.executeTransaction(trxXml);
+		
+		return trx;
+	}
+	
 	public PettyCashDrawRevTrx testPettyCashDrawRevTrx() {
 		
 		PettyCashDrawRevTrx trx = getPettyCashDrawRevTrx();
@@ -202,12 +236,13 @@ public class TestCashtillTrx {
 		
 		try {
 			//tt.testCreateCashtillTrx();
-			tt.testPettyCashDrawTrx();
+			//tt.testPettyCashDrawTrx();
 			//tt.testPettyCashDrawRevTrx();
 			//tt.createDrawAndReversal();
 			//tt.stressTestPettyCash();
+			tt.stressTestPettyCashDrawTrx();
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -37,22 +36,16 @@ public abstract class AbstractSpringJdbcDAO<T> {
 
 	public JdbcSqlBuilder sqlBuilder = new JdbcSqlBuilderPostgresImpl();
 
-	private JdbcTemplate jdbcTemplate;
 	private NamedParameterJdbcTemplate namedJdbcTemplate;
 
 	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		this.namedJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	public NamedParameterJdbcTemplate getNamedJdbcTemplate() {
 		return namedJdbcTemplate;
 	}
-
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
-	}
-
+	
 	protected abstract String getTableName();
 
 	protected abstract String[] getColumnNames();
@@ -496,7 +489,6 @@ public abstract class AbstractSpringJdbcDAO<T> {
 	public void setSqlBuilder(JdbcSqlBuilder sqlBuilder) {
 		this.sqlBuilder = sqlBuilder;
 	}
-
-
+	
 }
 

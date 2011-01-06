@@ -1,8 +1,5 @@
 package com.argility.cashtill.trx;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import com.argility.cashtill.trx.basic.BasicCashtillTrx;
 import com.argility.dao.entity.CashTillEntity;
 import com.argility.dao.entity.CashTranEntity;

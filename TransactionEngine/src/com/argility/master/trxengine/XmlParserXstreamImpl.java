@@ -33,6 +33,9 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 			.getLogger(this.getClass().getName());
 
 	private XStream xs = new XStream();
+	private SchemaFactory schemaFactory = 
+		SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
 
 	@Override
 	public TransactionInterface fromXml(String xml) throws ClassCastException {
@@ -86,17 +89,15 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 
 	public void validate(String xml, String schemaLocation)
 			throws ValidationFailedException, TransactionException {
-		log.info("Running schema validation using schema '" + schemaLocation
-				+ "'");
-		SchemaFactory sf = SchemaFactory
-				.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		log.info("Running schema validation using schema '" + schemaLocation+ "'");
+		
 		Schema mySchema = null;
-
-		ByteArrayInputStream bs = new ByteArrayInputStream(xml.getBytes());
 		URL schemaLocationURL = null;
 		DocumentBuilder parser = null;
 		Document document = null;
-
+		
+		ByteArrayInputStream bs = new ByteArrayInputStream(xml.getBytes());
+		
 		try {
 			if (schemaLocation == null) {
 				throw new ValidationFailedException("Invalid schema location '"
@@ -104,9 +105,11 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 			}
 			parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			document = parser.parse(bs);
+			
 			schemaLocationURL = getClass().getClassLoader().getResource(
 					schemaLocation);
-			mySchema = sf.newSchema(schemaLocationURL);
+			mySchema = schemaFactory.newSchema(schemaLocationURL);
+			
 			Validator validator = mySchema.newValidator();
 			validator.validate(new DOMSource(document));
 		} catch (SAXException e) {

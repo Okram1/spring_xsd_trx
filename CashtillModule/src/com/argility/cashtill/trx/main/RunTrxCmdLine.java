@@ -11,7 +11,6 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 
 import com.argility.master.context.MasterCtxFactory;
-import com.argility.master.context.SpringContextFactory;
 import com.argility.master.trxengine.iface.TransactionInterface;
 import com.argility.master.trxengine.iface.TransactionService;
 import com.argility.master.trxengine.iface.exception.TransactionException;
@@ -77,9 +76,8 @@ public class RunTrxCmdLine {
 			times = Integer.parseInt(args[1]);
 		}
 		
-		SpringContextFactory.getApplicationContext(); // Init context
 		try {
-			MasterCtxFactory.getInstance().getBranchInfoService().getOwnBranchProfile(); // init br prof
+			MasterCtxFactory.getInstance().getBranchInfoService().getOwnBranchProfile(); // init br prof and context
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 

@@ -241,17 +241,17 @@ public class TestCashtillTrx {
 			MasterCtxFactory.getInstance().getBranchInfoService().getOwnBranchProfile();
 			
 			//tt.testCreateCashtillTrx();
-			tt.testPettyCashDrawTrx();
+			//tt.testPettyCashDrawTrx();
 			//tt.testPettyCashDrawRevTrx();
 			//tt.createDrawAndReversal();
-			//tt.stressTestPettyCash();
+			tt.stressTestPettyCash();
 			//tt.stressTestPettyCashDrawTrx();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		// Unhash to use the jconsole tool
+		// Un-comment to use the jconsole tool
 		/*try {
 			Thread.sleep(60000);
 		} catch (InterruptedException e) {

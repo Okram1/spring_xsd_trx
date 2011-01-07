@@ -14,7 +14,7 @@
 		http://www.springframework.org/schema/tx 
      	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-	<context:property-placeholder location="classpath*:META-INF/spring/*.properties" />
+	<context:property-placeholder location="classpath*:*.properties" />
 
 	<!-- Setup our datasource -->
 	<bean class="org.apache.commons.dbcp.BasicDataSource"
@@ -55,6 +55,7 @@
 	<import resource="masterSpringContext.xml"/>
 	<import resource="daoSpringContext.xml"/>
 	<import resource="schemaSpringContext.xml"/>
+	
 	<import resource="cashtillSpringContext.xml"/>
 	
 </beans>

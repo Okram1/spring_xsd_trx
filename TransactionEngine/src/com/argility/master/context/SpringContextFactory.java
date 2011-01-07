@@ -27,6 +27,11 @@ public class SpringContextFactory {
 		SpringContextFactory.context = context;
 	}
 
+	/**
+	 * Initialize a new spring context singleton
+	 * 
+	 * @return
+	 */
 	private static ApplicationContext getNewApplicationContext() {
 		
 		// This will add a shutdown hook to the jvm, on jvm shutdown memory statistics will be printed

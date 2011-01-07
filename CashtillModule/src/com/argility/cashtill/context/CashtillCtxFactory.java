@@ -20,7 +20,7 @@ public abstract class CashtillCtxFactory {
 
 	public static CashtillCtxFactory getInstance() {
 		if (instance == null) {
-			log.info("Creating a new instance of ServiceFactory");
+			log.info("Creating a new instance of CashtillCtxFactory");
 			instance = SpringContextFactory.getApplicationContext().getBean(
 					CONTEXT_NAME, CashtillCtxFactory.class);
 		}

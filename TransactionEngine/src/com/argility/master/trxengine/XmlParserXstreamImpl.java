@@ -2,6 +2,8 @@ package com.argility.master.trxengine;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -35,6 +37,7 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 	private XStream xs = new XStream();
 	private SchemaFactory schemaFactory = 
 		SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+	private Map<String, Schema> schemaCache = new HashMap<String, Schema>();
 
 
 	@Override
@@ -86,13 +89,12 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 		}
 		return xs.toXML(obj);
 	}
-
+	
 	public void validate(String xml, String schemaLocation)
 			throws ValidationFailedException, TransactionException {
 		log.info("Running schema validation using schema '" + schemaLocation+ "'");
 		
 		Schema mySchema = null;
-		URL schemaLocationURL = null;
 		DocumentBuilder parser = null;
 		Document document = null;
 		
@@ -103,12 +105,12 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 				throw new ValidationFailedException("Invalid schema location '"
 						+ schemaLocation + "'");
 			}
+			
 			parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			document = parser.parse(bs);
 			
-			schemaLocationURL = getClass().getClassLoader().getResource(
-					schemaLocation);
-			mySchema = schemaFactory.newSchema(schemaLocationURL);
+			// Pull schema from the cache, if it's not yet cached then add the schema to the cache
+			mySchema = getSchema(schemaLocation);
 			
 			Validator validator = mySchema.newValidator();
 			validator.validate(new DOMSource(document));
@@ -131,5 +133,24 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 		String xml = toXml(trx);
 		validate(xml, trx.getSchemaLocation());
 	}
+	
+	// Building the schema is an expensive operation so lets cache it 
+	private synchronized Schema getSchema(String schemaLocation) throws SAXException {
+		Schema mySchema = null;
+		URL schemaLocationURL = null;
+		
+		if (!schemaCache.containsKey(schemaLocation)) {
+			log.info("Caching schema " + schemaLocation);
+			schemaLocationURL = getClass().getClassLoader().getResource(
+					schemaLocation);
+			mySchema = schemaFactory.newSchema(schemaLocationURL);
+			schemaCache.put(schemaLocation, mySchema);
+		}
+		
+		mySchema = schemaCache.get(schemaLocation);
+		
+		return mySchema;
+	}
+	
 
 }

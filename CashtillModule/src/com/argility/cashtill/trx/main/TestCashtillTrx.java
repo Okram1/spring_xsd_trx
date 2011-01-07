@@ -238,11 +238,11 @@ public class TestCashtillTrx {
 		
 		try {
 			//tt.testCreateCashtillTrx();
-			tt.testPettyCashDrawTrx();
+			//tt.testPettyCashDrawTrx();
 			//tt.testPettyCashDrawRevTrx();
 			//tt.createDrawAndReversal();
 			//tt.stressTestPettyCash();
-			//tt.stressTestPettyCashDrawTrx();
+			tt.stressTestPettyCashDrawTrx();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

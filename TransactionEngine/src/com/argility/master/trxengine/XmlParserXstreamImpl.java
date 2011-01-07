@@ -35,6 +35,7 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 			.getLogger(this.getClass().getName());
 
 	private XStream xs = new XStream();
+	
 	private SchemaFactory schemaFactory = 
 		SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 	private Map<String, Schema> schemaCache = new HashMap<String, Schema>();
@@ -90,6 +91,11 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 		return xs.toXML(obj);
 	}
 	
+	/**
+	 * Validation method, this method validates an xml against a classpath resource schema
+	 * the schema will be cached the first time it is used to reduce the running time of any
+	 * future validation
+	 */
 	public void validate(String xml, String schemaLocation)
 			throws ValidationFailedException, TransactionException {
 		log.info("Running schema validation using schema '" + schemaLocation+ "'");
@@ -101,7 +107,7 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 		ByteArrayInputStream bs = new ByteArrayInputStream(xml.getBytes());
 		
 		try {
-			if (schemaLocation == null) {
+			if (schemaLocation == null || "".equals(schemaLocation)) {
 				throw new ValidationFailedException("Invalid schema location '"
 						+ schemaLocation + "'");
 			}
@@ -140,7 +146,7 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 		URL schemaLocationURL = null;
 		
 		if (!schemaCache.containsKey(schemaLocation)) {
-			log.info("Caching schema " + schemaLocation);
+			log.info("Caching schema '" + schemaLocation + "'");
 			schemaLocationURL = getClass().getClassLoader().getResource(
 					schemaLocation);
 			mySchema = schemaFactory.newSchema(schemaLocationURL);

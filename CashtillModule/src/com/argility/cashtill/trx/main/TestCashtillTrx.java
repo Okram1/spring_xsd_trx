@@ -206,7 +206,7 @@ public class TestCashtillTrx {
 		String drawXml = null;
 		String revXml = null;
 		
-		int loopCnt = 5;
+		int loopCnt = 50;
 		
 		Date startDate = new Date();
 		log.info("STARTED: " + startDate);
@@ -236,13 +236,17 @@ public class TestCashtillTrx {
 	public static void main(String[] args) {
 		TestCashtillTrx tt = new TestCashtillTrx();
 		
+		
 		try {
+			// init context and br profile
+			MasterCtxFactory.getInstance().getBranchInfoService().getOwnBranchProfile();
+			
 			//tt.testCreateCashtillTrx();
 			//tt.testPettyCashDrawTrx();
 			//tt.testPettyCashDrawRevTrx();
 			//tt.createDrawAndReversal();
-			//tt.stressTestPettyCash();
-			tt.stressTestPettyCashDrawTrx();
+			tt.stressTestPettyCash();
+			//tt.stressTestPettyCashDrawTrx();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

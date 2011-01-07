@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.argility.master.dao.sqlbuilder.JdbcSqlBuilder;
-import com.argility.master.dao.sqlbuilder.JdbcSqlBuilderPostgresImpl;
 import com.argility.master.dao.sqlbuilder.rules.RuleColumnExceptPkNotNull;
 import com.argility.master.dao.sqlbuilder.rules.RuleColumnsNotNull;
 import com.argility.master.dao.sqlbuilder.rules.RuleColumnsValidForTable;
@@ -34,7 +33,7 @@ public abstract class AbstractSpringJdbcDAO<T> {
 	protected transient Logger log = Logger
 			.getLogger(this.getClass().getName());
 
-	public JdbcSqlBuilder sqlBuilder = new JdbcSqlBuilderPostgresImpl();
+	public JdbcSqlBuilder sqlBuilder;
 
 	private NamedParameterJdbcTemplate namedJdbcTemplate;
 

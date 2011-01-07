@@ -2,7 +2,6 @@ package com.argility.cashtill.trx.main;
 
 import java.math.BigInteger;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -231,27 +230,6 @@ public class TestCashtillTrx {
 		
 	}
 	
-	public void profile() {
-		Runtime runtime = Runtime.getRuntime();
-
-	    NumberFormat format = NumberFormat.getInstance();
-
-	    StringBuilder sb = new StringBuilder();
-	    long maxMemory = runtime.maxMemory();
-	    long allocatedMemory = runtime.totalMemory();
-	    long freeMemory = runtime.freeMemory();
-
-	    sb.append("\n\nPROFILING INFORMATION\n");
-	    sb.append("used memory: " + format.format((allocatedMemory - freeMemory) / 1024) + "\n");
-	    sb.append("free memory: " + format.format(freeMemory / 1024) + "\n");
-	    sb.append("allocated memory: " + format.format(allocatedMemory / 1024) + "\n");
-	    sb.append("max memory: " + format.format(maxMemory / 1024) + "\n");
-	    sb.append("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024) + "\n");
-	    
-	    log.info(sb.toString());
-
-	}
-	
 	/**
 	 * @param args
 	 */
@@ -259,27 +237,24 @@ public class TestCashtillTrx {
 		TestCashtillTrx tt = new TestCashtillTrx();
 		
 		try {
-			// init context and br profile
+			// init context and branch profile
 			MasterCtxFactory.getInstance().getBranchInfoService().getOwnBranchProfile();
 			
 			//tt.testCreateCashtillTrx();
-			//tt.testPettyCashDrawTrx();
+			tt.testPettyCashDrawTrx();
 			//tt.testPettyCashDrawRevTrx();
 			//tt.createDrawAndReversal();
-			tt.stressTestPettyCash();
+			//tt.stressTestPettyCash();
 			//tt.stressTestPettyCashDrawTrx();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		tt.profile();
 
 		// Unhash to use the jconsole tool
 		/*try {
 			Thread.sleep(60000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
 	}

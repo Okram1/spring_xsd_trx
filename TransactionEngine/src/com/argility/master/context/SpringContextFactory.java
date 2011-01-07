@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.argility.master.util.MemoryMonitor;
+
 /**
  * 
  * Spring context factory is the entry point into our spring
@@ -26,6 +28,10 @@ public class SpringContextFactory {
 	}
 
 	private static ApplicationContext getNewApplicationContext() {
+		
+		// This will add a shutdown hook to the jvm, on jvm shutdown memory statistics will be printed
+		new MemoryMonitor();
+		
 		log.info("\n\n****** Creating a new spring application context ******\n\n");
 
 		Date startDate = new Date();

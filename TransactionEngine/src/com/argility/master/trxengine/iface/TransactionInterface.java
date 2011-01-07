@@ -12,8 +12,8 @@ import com.argility.master.trxengine.iface.exception.TransactionException;
 public interface TransactionInterface {
 
 	/**
-	 * 
-	 * @return Get metadata about the transaction, this is used when the transaction is generated
+	 * Get metadata about the transaction, this is used when the transaction is generated on the server
+	 * @return 
 	 */
 	public ActH01 getActH01();
 	
@@ -27,18 +27,39 @@ public interface TransactionInterface {
 	
 	public void setClientActH01(ActH01 actH01);
 	
+	/**
+	 * Get this transactions audit id
+	 * @return
+	 */
 	public int getAuditId();
 	
+	/**
+	 * Get this transactions action type
+	 * @return
+	 */
 	public int getActionType();
 	
+	/**
+	 * Get this transactions xml representation
+	 * @return
+	 */
 	public String getAuditXml();
 
 	public void setAuditXml(String xml);
 
+	/**
+	 * Get this transactions replication, so get all the SQL that were executed by this transaction
+	 * @return
+	 */
 	public String getReplicationXml();
 
 	public void setReplicationXml(String xml);
 	
+	/**
+	 * Classpath location for the schema/xsd this transaction must be validated against
+	 * if this is not set or invalid you WILL NOT be able to execute the transaction 
+	 * @return
+	 */
 	public String getSchemaLocation();
 
 	/**

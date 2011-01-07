@@ -23,6 +23,10 @@ public class TransactionException extends RuntimeException {
 		super(message);
 	}
 	
+	public TransactionException(Throwable e) {
+		super(e);
+	}
+	
 	public TransactionException(String type, Throwable e, TransactionInterface trx) {
 		super(e.getMessage());
 		

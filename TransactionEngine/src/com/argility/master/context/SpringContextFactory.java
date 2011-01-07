@@ -1,5 +1,7 @@
 package com.argility.master.context;
 
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,10 +28,16 @@ public class SpringContextFactory {
 	private static ApplicationContext getNewApplicationContext() {
 		log.info("\n\n****** Creating a new spring application context ******\n\n");
 
+		Date startDate = new Date();
+		
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[] { SPRING_CONTEXT_PATH });
 
-		log.info("\n\n****** Spring application context initialized ******\n\n");
+		Date endDate = new Date();
+		double diff = endDate.getTime() - startDate.getTime();
+		double seconds = diff/1000;
+		
+		log.info("\n\n****** Spring application context initialized in "+ seconds + " seconds ******\n\n");
 
 		return context;
 

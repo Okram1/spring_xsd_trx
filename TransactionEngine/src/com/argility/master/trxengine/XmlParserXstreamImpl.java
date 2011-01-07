@@ -40,6 +40,8 @@ public class XmlParserXstreamImpl implements XmlParserIface {
 		SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 	private Map<String, Schema> schemaCache = new HashMap<String, Schema>();
 
+	protected XmlParserXstreamImpl() {
+	}
 
 	@Override
 	public TransactionInterface fromXml(String xml) throws ClassCastException {

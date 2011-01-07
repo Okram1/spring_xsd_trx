@@ -6,7 +6,7 @@ import com.argility.master.trxengine.iface.exception.ValidationFailedException;
 /**
  * 
  * @author marko.salic
- * Xml parser handles parsing from java object to xml and back again
+ * Xml parser handles parsing from java object to xml and back again as well as schema validation
  */
 public interface XmlParserIface {
 
@@ -32,13 +32,17 @@ public interface XmlParserIface {
 	
 	public Object fromXmlToPojo(String xml);
 	
-	public String toXml(Object trx);
+	public String toXml(Object o);
 	
 	/**
 	 * Validate an xml against a schema
 	 */
 	public void validate(String xml, String schemaLocation) throws ValidationFailedException, TransactionException;
 	
+	/**
+	 * Validate the transaction against it's schema, the schema will be retrieved using getSchemaLocation method on 
+	 * the TransactionInterface and MUST be set
+	 */
 	public void validateTrx(TransactionInterface trx) throws ValidationFailedException, TransactionException, ClassCastException;
 
 }

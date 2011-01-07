@@ -5,6 +5,12 @@ import org.apache.log4j.Logger;
 import com.argility.cashtill.service.CashtillService;
 import com.argility.master.context.SpringContextFactory;
 
+/**
+ * Cashtill module context factory, services that the module provides will be found here
+ * 
+ * @author marko.salic
+ *
+ */
 public abstract class CashtillCtxFactory {
 
 	protected static Logger log = Logger.getLogger(CashtillCtxFactory.class.getName());
@@ -22,6 +28,11 @@ public abstract class CashtillCtxFactory {
 		return instance;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * 		The configured cashtill service implementation
+	 */
 	public abstract CashtillService getCashtillService();
 	
 	

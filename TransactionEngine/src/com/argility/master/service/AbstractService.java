@@ -32,6 +32,11 @@ public abstract class AbstractService {
 	private DataSource dataSource;
 	private TrxLogger trxLogger;
 
+	/**
+	 * If you need a connection DO NOT USE THIS datasource's getConnection method, use the getConnection
+	 * method on this same class 
+	 * @return
+	 */
 	public DataSource getDataSource() {
 		return dataSource;
 	}

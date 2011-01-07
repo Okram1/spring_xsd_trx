@@ -30,7 +30,7 @@ import com.argility.master.trxengine.iface.exception.ValidationFailedException;
 public class TransactionServiceImpl extends AbstractService implements
 		TransactionService {
 
-	public TransactionServiceImpl() {
+	protected TransactionServiceImpl() {
 	}
 
 	public TransactionInterface executeTransaction(String xml)

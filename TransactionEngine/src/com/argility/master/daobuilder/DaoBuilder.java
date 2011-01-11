@@ -335,13 +335,15 @@ public class DaoBuilder {
 		String saveLoc = null;
 		//saveLoc = "C:\\Users\\Mare\\Documents\\workspace_cordys\\DaoModule\\src\\";
 		
-		saveLoc = "/home/UCS-SOFTWARE/marko.salic/ws_cordys/cordys_retail_src/DaoModule/src/";
-		String pckg = "com.argility";
+		//saveLoc = "/home/UCS-SOFTWARE/marko.salic/ws_cordys/cordys_retail_src/DaoModule/src/";
+		saveLoc = "/home/UCS-SOFTWARE/marko.salic/ws_cordys/cordys_retail_src/TransactionEngine/src/";
+		String pckg = "com.argility.master.audit";
 		
 		boolean onlyBaseClasses = false;
 		boolean generateALLDaos = false;
 		
-		String[] tables = new String[] {"cash_tran", "cup_tend", "cash_till", "petty_draw"};
+		//String[] tables = new String[] {"cash_tran", "cup_tend", "cash_till", "petty_draw"};
+		String[] tables = new String[] {"audit", "audmth", "obo_hist"};
 		
 		DaoBuilder db = new DaoBuilder();
 		//TODO - move this logic into a calling class

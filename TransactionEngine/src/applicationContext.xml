@@ -53,9 +53,11 @@
 	<!-- Import all the services we provide, ie, import any modules on the classpath with a *SpringContext.xml-->
 	<!-- import resource="classpath*:*SpringContext.xml" /--> <!-- Any xml file matching given regex will be loaded-->
 	<import resource="masterSpringContext.xml"/>
-	<import resource="daoSpringContext.xml"/>
-	<import resource="schemaSpringContext.xml"/>
+	<!-- import resource="daoSpringContext.xml"/-->
+	<!-- import resource="schemaSpringContext.xml"/-->
 	
-	<import resource="cashtillSpringContext.xml"/>
+	<!-- import resource="cashtillSpringContext.xml"/-->
+	
+	<import resource="classpath*:*SpringContext.xml" /> <!-- Any xml file matching given regex will be loaded-->
 	
 </beans>

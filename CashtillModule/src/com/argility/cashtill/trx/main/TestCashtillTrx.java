@@ -241,7 +241,7 @@ public class TestCashtillTrx {
 			MasterCtxFactory.getInstance().getBranchInfoService().getOwnBranchProfile();
 			
 			//tt.testCreateCashtillTrx();
-			//tt.testPettyCashDrawTrx();
+			tt.testPettyCashDrawTrx();
 			//tt.testPettyCashDrawRevTrx();
 			//tt.createDrawAndReversal();
 			tt.stressTestPettyCash();

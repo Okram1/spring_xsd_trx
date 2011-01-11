@@ -72,4 +72,8 @@ public abstract class AbstractTransaction implements TransactionInterface {
 	public void setClientActH01(ActH01 clientActH01) {
 		this.clientActH01 = clientActH01;
 	}
+	
+	public String getUsrId() {
+		return getActH01().getUiD01().getUserId();
+	}
 }
